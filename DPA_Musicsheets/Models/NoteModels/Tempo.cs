@@ -20,6 +20,11 @@ namespace DPA_Musicsheets.Models {
             this.speed = speed;
         }
 
+        // Calculate correct notation
+        double RealScale { get {
+                return 1 / scale;
+            }
+        }
         int amount;
         double scale;
         int speed;

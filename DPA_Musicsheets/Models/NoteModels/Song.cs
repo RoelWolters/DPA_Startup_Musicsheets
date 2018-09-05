@@ -11,7 +11,6 @@ namespace DPA_Musicsheets.Models {
             this.melody = melody;
         }
 
-        Tempo tempo;
         Bar[] melody;
     }
 }

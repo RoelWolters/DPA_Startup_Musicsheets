@@ -1,5 +1,7 @@
 ﻿
+using DPA_Musicsheets.Factories;
 using DPA_Musicsheets.Models;
+using DPA_Musicsheets.Parsers;
 using DPA_Musicsheets.ViewModels;
 using PSAMControlLibrary;
 using PSAMWPFControlLibrary;
@@ -54,7 +56,7 @@ namespace DPA_Musicsheets.Managers
                 MidiSequence.Load(fileName);
 
                 MidiPlayerViewModel.MidiSequence = MidiSequence;
-                this.LilypondText = LoadMidiIntoLilypond(MidiSequence);
+                this.LilypondText = LoadIntoLilyPond(MidiSequence, ".mid");
                 this.LilypondViewModel.LilypondTextLoaded(this.LilypondText);
             }
             else if (Path.GetExtension(fileName).EndsWith(".ly"))
@@ -98,6 +100,14 @@ namespace DPA_Musicsheets.Managers
 
         #region Midi loading (loads midi to lilypond)
 
+        public string LoadIntoLilyPond(Sequence sequence, string type)
+        {
+            ParserFactory factory = new ParserFactory();
+            IParser parser = factory.CreateParser(type);
+
+            return parser.Parse(sequence);
+        }
+
         /// <summary>
         /// TODO: Create our own domain classes to be independent of external libraries/languages.
         /// </summary>
@@ -126,7 +136,7 @@ namespace DPA_Musicsheets.Managers
                     // We want to split this so that we can expand our functionality later with new keywords for example.
                     // Hint: Command pattern? Strategies? Factory method?
                     switch (midiMessage.MessageType)
-                    {
+                    {   
                         case MessageType.Meta:
                             var metaMessage = midiMessage as MetaMessage;
                             switch (metaMessage.MetaType)

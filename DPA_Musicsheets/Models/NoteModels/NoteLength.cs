@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace DPA_Musicsheets.Models {
-    class NoteLength {
+     public class NoteLength {
         public NoteLength(double value, bool point) {
             this.value = value;
             this.point = point;

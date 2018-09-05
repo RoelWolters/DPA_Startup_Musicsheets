@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace DPA_Musicsheets.Models {
-    class Tempo {
+    public class Tempo {
         // Create from correct notation
         public Tempo(int amount, int realScale, int speed) {
             this.amount = amount;

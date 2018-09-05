@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace DPA_Musicsheets.Models {
-    enum Modifier {
+    public enum Modifier {
         none,
         sharp,
         b

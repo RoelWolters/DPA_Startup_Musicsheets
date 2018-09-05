@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace DPA_Musicsheets.Models {
-    class Tone {
+    public class Tone {
         public Tone(ToneHeight height, Modifier modifier, int octave) {
             this.height = height;
             this.modifier = modifier;

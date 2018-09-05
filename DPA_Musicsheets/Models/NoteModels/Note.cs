@@ -15,7 +15,7 @@ namespace DPA_Musicsheets.Models {
         public ModelNote(Tone tone, NoteLength length, Tempo tempoChange) {
             this.tone = tone;
             this.length = length;
-            this.tempoChange = null;
+            this.tempoChange = tempoChange;
         }
 
         Tempo tempoChange;

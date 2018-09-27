@@ -8,8 +8,6 @@ using System.Threading.Tasks;
 
 namespace DPA_Musicsheets.Parsers
 {
-
-
     class MidiParser : IParser
     {
         private int _beatNote = 4;    // De waarde van een beatnote.
@@ -27,7 +25,7 @@ namespace DPA_Musicsheets.Parsers
             List<string> stringList = new List<string>();
             lilypondContent.AppendLine("\\relative c' {");
             lilypondContent.AppendLine("\\clef treble");
-
+            System.Diagnostics.Debug.WriteLine(sequence);
             _division = sequence.Division;
 
             for (int i = 0; i < sequence.Count(); i++)
@@ -36,7 +34,7 @@ namespace DPA_Musicsheets.Parsers
 
                 foreach (var midiEvent in track.Iterator())
                 {
-                    System.Diagnostics.Debug.WriteLine(midiEvent.MidiMessage);
+
                     IMidiMessage midiMessage = midiEvent.MidiMessage;
                     // TODO: Split this switch statements and create separate logic.
                     // We want to split this so that we can expand our functionality later with new keywords for example.
@@ -44,10 +42,12 @@ namespace DPA_Musicsheets.Parsers
 
                     if (midiMessage.MessageType == MessageType.Meta)
                     {
+                        System.Diagnostics.Debug.WriteLine("Meta: " + (midiEvent.MidiMessage as MetaMessage).MetaType);
                         stringList.Add(getMetaString(midiMessage as MetaMessage, midiEvent, ref lilypondContent));
                     }
                     else
                     {
+                        System.Diagnostics.Debug.WriteLine("Channel: " + (midiEvent.MidiMessage as ChannelMessage).Message);
                         stringList.Add(getChannelString(midiMessage as ChannelMessage, midiEvent, ref lilypondContent));
                     }
                 }
@@ -55,7 +55,7 @@ namespace DPA_Musicsheets.Parsers
 
             foreach (string s in stringList)
             {
-                Console.WriteLine(s);
+                // Console.WriteLine(s);
             }
             lilypondContent.Append("}");
 
@@ -78,7 +78,6 @@ namespace DPA_Musicsheets.Parsers
                 }
                 else if (!_startedNoteIsClosed)
                 {
-                    Console.WriteLine("I do get here");
                     // Finish the previous note with the length.
                     double percentageOfBar;
                     string noteLength = MidiToLilyHelper.GetLilypondNoteLength(_previousNoteAbsoluteTicks, midiEvent.AbsoluteTicks, _division, _beatNote, _beatsPerBar, out percentageOfBar);

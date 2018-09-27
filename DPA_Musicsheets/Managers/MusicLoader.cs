@@ -41,25 +41,6 @@ namespace DPA_Musicsheets.Managers
         public MidiPlayerViewModel MidiPlayerViewModel { get; set; }
         public StaffsViewModel StaffsViewModel { get; set; }
 
-		private void OpenMidiFile(string fileName) {
-			MidiSequence = new Sequence();
-			MidiSequence.Load(fileName);
-
-			MidiPlayerViewModel.MidiSequence = MidiSequence;
-			LilypondText = LoadIntoLilyPond(MidiSequence, ".mid");
-			LilypondViewModel.LilypondTextLoaded(this.LilypondText);
-		}
-
-		private void OpenLilypondFile(string fileName) {
-			StringBuilder sb = new StringBuilder();
-			foreach (var line in File.ReadAllLines(fileName)) {
-				sb.AppendLine(line);
-			}
-
-			this.LilypondText = sb.ToString();
-			this.LilypondViewModel.LilypondTextLoaded(this.LilypondText);
-		}
-
         /// <summary>
         /// Opens a file.
         /// TODO: Remove the switch cases and delegate.
@@ -71,11 +52,24 @@ namespace DPA_Musicsheets.Managers
         {
             if (Path.GetExtension(fileName).EndsWith(".mid"))
             {
-				OpenMidiFile(fileName);
+                MidiSequence = new Sequence();
+                MidiSequence.Load(fileName);
+
+                MidiPlayerViewModel.MidiSequence = MidiSequence;
+                LilypondText = LoadIntoLilyPond(MidiSequence, ".mid");
+                Console.WriteLine(this.LilypondText);
+                this.LilypondViewModel.LilypondTextLoaded(this.LilypondText);
             }
             else if (Path.GetExtension(fileName).EndsWith(".ly"))
             {
-				OpenLilypondFile(fileName);
+                StringBuilder sb = new StringBuilder();
+                foreach (var line in File.ReadAllLines(fileName))
+                {
+                    sb.AppendLine(line);
+                }
+                
+                this.LilypondText = sb.ToString();
+                this.LilypondViewModel.LilypondTextLoaded(this.LilypondText);
             }
             else
             {
@@ -84,8 +78,6 @@ namespace DPA_Musicsheets.Managers
 
             LoadLilypondIntoWpfStaffsAndMidi(LilypondText);
         }
-
-
 
         /// <summary>
         /// This creates WPF staffs and MIDI from Lilypond.
@@ -115,132 +107,6 @@ namespace DPA_Musicsheets.Managers
             IParser parser = factory.CreateParser(type);
 
             return parser.Parse(sequence);
-        }
-
-		private void LoadMetaTimeSignature(StringBuilder lilypondContent, MetaMessage metaMessage) {
-			byte[] timeSignatureBytes = metaMessage.GetBytes();
-			_beatNote = timeSignatureBytes[0];
-			_beatsPerBar = (int)(1 / Math.Pow(timeSignatureBytes[1], -2));
-			lilypondContent.AppendLine($"\\time {_beatNote}/{_beatsPerBar}");
-		}
-
-		private void LoadMetaTempo(StringBuilder lilypondContent, MetaMessage metaMessage) {
-			byte[] tempoBytes = metaMessage.GetBytes();
-			int tempo = (tempoBytes[0] & 0xff) << 16 | (tempoBytes[1] & 0xff) << 8 | (tempoBytes[2] & 0xff);
-			_bpm = 60000000 / tempo;
-			lilypondContent.AppendLine($"\\tempo 4={_bpm}");
-		}
-
-		private void FinishLastNote(MidiEvent midiEvent, StringBuilder lilypondContent, int previousNoteAbsoluteTicks, int division, double percentageOfBarReached) {
-			// Finish the last notelength.
-			double percentageOfBar;
-			lilypondContent.Append(MidiToLilyHelper.GetLilypondNoteLength(previousNoteAbsoluteTicks, midiEvent.AbsoluteTicks, division, _beatNote, _beatsPerBar, out percentageOfBar));
-			lilypondContent.Append(" ");
-
-			percentageOfBarReached += percentageOfBar;
-			if (percentageOfBarReached >= 1) {
-				lilypondContent.AppendLine("|");
-				percentageOfBar = percentageOfBar - 1;
-			}
-		}
-
-		private void LoadMetaMessage(MidiEvent midiEvent, StringBuilder lilypondContent, IMidiMessage midiMessage, int previousNoteAbsoluteTicks, int division, double percentageOfBarReached) {
-			var metaMessage = midiMessage as MetaMessage;
-			switch (metaMessage.MetaType) {
-				case MetaType.TimeSignature:
-					LoadMetaTimeSignature(lilypondContent, metaMessage);
-					break;
-				case MetaType.Tempo:
-					LoadMetaTempo(lilypondContent, metaMessage);
-					break;
-				case MetaType.EndOfTrack:
-					if (previousNoteAbsoluteTicks > 0) {
-						FinishLastNote(midiEvent, lilypondContent, previousNoteAbsoluteTicks, division, percentageOfBarReached);
-					}
-					break;
-				default: break;
-			}
-		}
-
-		private void AppendNewNote(ChannelMessage channelMessage, StringBuilder lilypondContent, int previousMidiKey, bool startedNoteIsClosed) {
-			lilypondContent.Append(MidiToLilyHelper.GetLilyNoteName(previousMidiKey, channelMessage.Data1));
-
-			previousMidiKey = channelMessage.Data1;
-			startedNoteIsClosed = false;
-		}
-
-		private void FinishPreviousNote(MidiEvent midiEvent, StringBuilder lilypondContent, int previousNoteAbsoluteTicks, int division, bool startedNoteIsClosed, double percentageOfBarReached) {
-			double percentageOfBar;
-			lilypondContent.Append(MidiToLilyHelper.GetLilypondNoteLength(previousNoteAbsoluteTicks, midiEvent.AbsoluteTicks, division, _beatNote, _beatsPerBar, out percentageOfBar));
-			previousNoteAbsoluteTicks = midiEvent.AbsoluteTicks;
-			lilypondContent.Append(" ");
-
-			percentageOfBarReached += percentageOfBar;
-			if (percentageOfBarReached >= 1) {
-				lilypondContent.AppendLine("|");
-				percentageOfBarReached -= 1;
-			}
-			startedNoteIsClosed = true;
-		}
-
-		private void LoadChannelMessage(MidiEvent midiEvent, StringBuilder lilypondContent, int previousMidiKey, int previousNoteAbsoluteTicks, int division, bool startedNoteIsClosed, double percentageOfBarReached) {
-			var channelMessage = midiEvent.MidiMessage as ChannelMessage;
-			if (channelMessage.Command == ChannelCommand.NoteOn) {
-				if (channelMessage.Data2 > 0) // Data2 = loudness
-				{
-					// Append the new note.
-					AppendNewNote(channelMessage, lilypondContent, previousMidiKey, startedNoteIsClosed);
-				} else if (!startedNoteIsClosed) {
-					// Finish the previous note with the length.
-					FinishPreviousNote(midiEvent, lilypondContent, previousNoteAbsoluteTicks, division, startedNoteIsClosed, percentageOfBarReached);
-				} else {
-					lilypondContent.Append("r");
-				}
-			}
-		}
-
-        /// <summary>
-        /// TODO: Create our own domain classes to be independent of external libraries/languages.
-        /// </summary>
-        /// <param name="sequence"></param>
-        /// <returns></returns>
-        public string LoadMidiIntoLilypond(Sequence sequence)
-        {
-            StringBuilder lilypondContent = new StringBuilder();
-            lilypondContent.AppendLine("\\relative c' {");
-            lilypondContent.AppendLine("\\clef treble");
-
-            int division = sequence.Division;
-            int previousMidiKey = 60; // Central C;
-            int previousNoteAbsoluteTicks = 0;
-            double percentageOfBarReached = 0;
-            bool startedNoteIsClosed = true;
-
-            for (int i = 0; i < sequence.Count(); i++)
-            {
-                Track track = sequence[i];
-
-                foreach (var midiEvent in track.Iterator())
-                {
-                    IMidiMessage midiMessage = midiEvent.MidiMessage;
-                    // TODO: Split this switch statements and create separate logic.
-                    // We want to split this so that we can expand our functionality later with new keywords for example.
-                    // Hint: Command pattern? Strategies? Factory method?
-                    switch (midiMessage.MessageType)
-                    {   
-                        case MessageType.Meta:
-							LoadMetaMessage(midiEvent, lilypondContent, midiMessage, previousNoteAbsoluteTicks, division, percentageOfBarReached);
-                            break;
-                        case MessageType.Channel:
-							LoadChannelMessage(midiEvent, lilypondContent, previousMidiKey, previousNoteAbsoluteTicks, division, startedNoteIsClosed, percentageOfBarReached);
-							break;
-                    }
-                }
-            }
-
-            lilypondContent.Append("}");
-
-            return lilypondContent.ToString();
         }
 
         #endregion Midiloading (loads midi to lilypond)
@@ -438,53 +304,7 @@ namespace DPA_Musicsheets.Managers
 
             sequence.Save(fileName);
         }
-
-		private void CalculateTempo(Track metaTrack) {
-			int speed = (60000000 / _bpm);
-			byte[] tempo = new byte[3];
-			tempo[0] = (byte)((speed >> 16) & 0xff);
-			tempo[1] = (byte)((speed >> 8) & 0xff);
-			tempo[2] = (byte)(speed & 0xff);
-			metaTrack.Insert(0 /* Insert at 0 ticks*/, new MetaMessage(MetaType.Tempo, tempo));
-		}
-
-		private double CalculateNoteDuration(Note note, Sequence sequence) {
-			double absoluteLength = 1.0 / (double)note.Duration;
-			absoluteLength += (absoluteLength / 2.0) * note.NumberOfDots;
-
-			double relationToQuartNote = _beatNote / 4.0;
-			double percentageOfBeatNote = (1.0 / _beatNote) / absoluteLength;
-			double deltaTicks = (sequence.Division / relationToQuartNote) / percentageOfBeatNote;
-			return deltaTicks;
-		}
         
-		private int CalculateNoteHeight(Note note, List<string> notesOrderWithCrosses, Track notesTrack, int absoluteTicks) {
-			int noteHeight = notesOrderWithCrosses.IndexOf(note.Step.ToLower()) + ((note.Octave + 1) * 12);
-			noteHeight += note.Alter;
-			return noteHeight;
-		}
-
-		private void GetSequenceNote(MusicalSymbol musicalSymbol, Sequence sequence, List<string> notesOrderWithCrosses, Track notesTrack, int absoluteTicks) {
-			Note note = musicalSymbol as Note;
-
-			// Calculate duration
-			double deltaTicks = CalculateNoteDuration(note, sequence);
-
-			// Calculate height
-			int noteHeight = CalculateNoteHeight(note, notesOrderWithCrosses, notesTrack, absoluteTicks);
-
-			absoluteTicks += (int)deltaTicks;
-			notesTrack.Insert(absoluteTicks, new ChannelMessage(ChannelCommand.NoteOn, 1, noteHeight, 0)); // Data2 = volume
-
-		}
-
-		private void GetSequenceTimeSignature(Track metaTrack, int absoluteTicks) {
-			byte[] timeSignature = new byte[4];
-			timeSignature[0] = (byte)_beatsPerBar;
-			timeSignature[1] = (byte)(Math.Log(_beatNote) / Math.Log(2));
-			metaTrack.Insert(absoluteTicks, new MetaMessage(MetaType.TimeSignature, timeSignature));
-		}
-
         /// <summary>
         /// We create MIDI from WPF staffs, 2 different dependencies, not a good practice.
         /// TODO: Create MIDI from our own domain classes.
@@ -501,8 +321,13 @@ namespace DPA_Musicsheets.Managers
             Track metaTrack = new Track();
             sequence.Add(metaTrack);
 
-			// Calculate tempo
-			CalculateTempo(metaTrack);
+            // Calculate tempo
+            int speed = (60000000 / _bpm);
+            byte[] tempo = new byte[3];
+            tempo[0] = (byte)((speed >> 16) & 0xff);
+            tempo[1] = (byte)((speed >> 8) & 0xff);
+            tempo[2] = (byte)(speed & 0xff);
+            metaTrack.Insert(0 /* Insert at 0 ticks*/, new MetaMessage(MetaType.Tempo, tempo));
 
             Track notesTrack = new Track();
             sequence.Add(notesTrack);
@@ -513,10 +338,30 @@ namespace DPA_Musicsheets.Managers
                 switch (musicalSymbol.Type)
                 {
                     case MusicalSymbolType.Note:
-						GetSequenceNote(musicalSymbol, sequence, notesOrderWithCrosses, notesTrack, absoluteTicks);
+                        Note note = musicalSymbol as Note;
+
+                        // Calculate duration
+                        double absoluteLength = 1.0 / (double)note.Duration;
+                        absoluteLength += (absoluteLength / 2.0) * note.NumberOfDots;
+
+                        double relationToQuartNote = _beatNote / 4.0;
+                        double percentageOfBeatNote = (1.0 / _beatNote) / absoluteLength;
+                        double deltaTicks = (sequence.Division / relationToQuartNote) / percentageOfBeatNote;
+
+                        // Calculate height
+                        int noteHeight = notesOrderWithCrosses.IndexOf(note.Step.ToLower()) + ((note.Octave + 1) * 12);
+                        noteHeight += note.Alter;
+                        notesTrack.Insert(absoluteTicks, new ChannelMessage(ChannelCommand.NoteOn, 1, noteHeight, 90)); // Data2 = volume
+
+                        absoluteTicks += (int)deltaTicks;
+                        notesTrack.Insert(absoluteTicks, new ChannelMessage(ChannelCommand.NoteOn, 1, noteHeight, 0)); // Data2 = volume
+
                         break;
                     case MusicalSymbolType.TimeSignature:
-						GetSequenceTimeSignature(metaTrack, absoluteTicks);
+                        byte[] timeSignature = new byte[4];
+                        timeSignature[0] = (byte)_beatsPerBar;
+                        timeSignature[1] = (byte)(Math.Log(_beatNote) / Math.Log(2));
+                        metaTrack.Insert(absoluteTicks, new MetaMessage(MetaType.TimeSignature, timeSignature));
                         break;
                     default:
                         break;

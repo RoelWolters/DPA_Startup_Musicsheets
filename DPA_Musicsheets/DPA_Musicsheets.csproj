@@ -103,16 +103,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Builders\IBuilder.cs" />
-    <Compile Include="Builders\LilyBuilder.cs" />
-    <Compile Include="Parsers\IParser.cs" />
-    <Compile Include="Parsers\MidiParser.cs" />
-    <Compile Include="Managers\MidiToLilyHelper.cs" />
-    <Compile Include="Managers\MusicLoader.cs" />
-    <Compile Include="Factories\ParserFactory.cs" />
     <Compile Include="Models\NoteModels\Bar.cs" />
-    <Compile Include="Models\LilypondToken.cs" />
-    <Compile Include="Models\LilypondTokenKind.cs" />
     <Compile Include="Models\NoteModels\Modifier.cs" />
     <Compile Include="Models\NoteModels\Note.cs" />
     <Compile Include="Models\NoteModels\NoteLength.cs" />
@@ -120,6 +111,13 @@
     <Compile Include="Models\NoteModels\Tempo.cs" />
     <Compile Include="Models\NoteModels\Tone.cs" />
     <Compile Include="Models\NoteModels\ToneHeight.cs" />
+    <Compile Include="Parsers\IParser.cs" />
+    <Compile Include="Managers\MidiToLilyHelper.cs" />
+    <Compile Include="Managers\MusicLoader.cs" />
+    <Compile Include="Parsers\MidiParser.cs" />
+    <Compile Include="Models\LilypondToken.cs" />
+    <Compile Include="Models\LilypondTokenKind.cs" />
+    <Compile Include="Factories\ParserFactory.cs" />
     <Compile Include="ViewModels\MidiPlayerViewModel.cs" />
     <Compile Include="ViewModels\StaffsViewModel.cs" />
     <Compile Include="Views\MidiPlayerCtrl.xaml.cs">

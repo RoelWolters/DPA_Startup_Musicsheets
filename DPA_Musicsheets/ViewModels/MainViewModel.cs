@@ -1,4 +1,5 @@
 ﻿using DPA_Musicsheets.Managers;
+using DPA_Musicsheets.States;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using Microsoft.Win32;
@@ -39,6 +40,13 @@ namespace DPA_Musicsheets.ViewModels
         {
             get { return _currentState; }
             set { _currentState = value; RaisePropertyChanged(() => CurrentState); }
+        }
+
+        private BaseEditorState _state;
+        public BaseEditorState State
+        {
+            get { return _state; }
+            set { _state = value; RaisePropertyChanged(() => State); }
         }
 
         private MusicLoader _musicLoader;

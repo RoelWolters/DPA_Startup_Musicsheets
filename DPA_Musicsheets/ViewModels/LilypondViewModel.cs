@@ -1,4 +1,5 @@
 ﻿using DPA_Musicsheets.Managers;
+using DPA_Musicsheets.States;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using Microsoft.Win32;
@@ -69,9 +70,12 @@ namespace DPA_Musicsheets.ViewModels
         /// </summary>
         public ICommand TextChangedCommand => new RelayCommand<TextChangedEventArgs>((args) =>
         {
+            Console.WriteLine("I am typing");
             // If we were typing, we need to do things.
             if (!_textChangedByLoad)
             {
+                _mainViewModel.State = new EditedState();
+                
                 _waitingForRender = true;
                 _lastChange = DateTime.Now;
 
@@ -131,6 +135,8 @@ namespace DPA_Musicsheets.ViewModels
                 {
                     MessageBox.Show($"Extension {extension} is not supported.");
                 }
+
+                _mainViewModel.State = new NotEditedState();
             }
         });
         #endregion Commands for buttons like Undo, Redo and SaveAs

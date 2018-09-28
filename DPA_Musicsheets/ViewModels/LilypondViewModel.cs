@@ -15,10 +15,9 @@ namespace DPA_Musicsheets.ViewModels
     {
         private MusicLoader _musicLoader;
         private MainViewModel _mainViewModel { get; set; }
-
-        private string _text;
-        private string _previousText;
-        private string _nextText;
+		private LilypondText _text;
+		private LilypondTextCaretaker _caretaker;
+		private bool _movedInHistory;
 
         /// <summary>
         /// This text will be in the textbox.
@@ -28,16 +27,12 @@ namespace DPA_Musicsheets.ViewModels
         {
             get
             {
-                return _text;
+                return _text.Text;
             }
             set
             {
-                if (!_waitingForRender && !_textChangedByLoad)
-                {
-                    _previousText = _text;
-                }
-                _text = value;
-                RaisePropertyChanged(() => LilypondText);
+				_text.Text = value;
+				RaisePropertyChanged(() => LilypondText);
             }
         }
 
@@ -46,6 +41,8 @@ namespace DPA_Musicsheets.ViewModels
         private static int MILLISECONDS_BEFORE_CHANGE_HANDLED = 1500;
         private bool _waitingForRender = false;
 
+
+
         public LilypondViewModel(MainViewModel mainViewModel, MusicLoader musicLoader)
         {
             // TODO: Can we use some sort of eventing system so the managers layer doesn't have to know the viewmodel layer and viewmodels don't know each other?
@@ -53,15 +50,24 @@ namespace DPA_Musicsheets.ViewModels
             _mainViewModel = mainViewModel;
             _musicLoader = musicLoader;
             _musicLoader.LilypondViewModel = this;
-            
-            _text = "Your lilypond text will appear here.";
-        }
+
+			_text = new LilypondText();
+			_caretaker = new LilypondTextCaretaker(_text);
+			_movedInHistory = false;
+
+			LilypondText = "Your lilypond text will appear here.";
+			UndoCommand.RaiseCanExecuteChanged();
+			RedoCommand.RaiseCanExecuteChanged();
+		}
 
         public void LilypondTextLoaded(string text)
         {
             _textChangedByLoad = true;
-            LilypondText = _previousText = text;
-            _textChangedByLoad = false;
+			_caretaker.reset();
+			LilypondText = text;
+			UndoCommand.RaiseCanExecuteChanged();
+			RedoCommand.RaiseCanExecuteChanged();
+			_textChangedByLoad = false;
         }
 
         /// <summary>
@@ -82,9 +88,15 @@ namespace DPA_Musicsheets.ViewModels
                     if ((DateTime.Now - _lastChange).TotalMilliseconds >= MILLISECONDS_BEFORE_CHANGE_HANDLED)
                     {
                         _waitingForRender = false;
-                        UndoCommand.RaiseCanExecuteChanged();
+						// An undo or a redo (a 'move in history') should not be treated as a timeline change.
+						if (!_movedInHistory) {
+							_caretaker.add();
+							_movedInHistory = false;
+						}
+						UndoCommand.RaiseCanExecuteChanged();
+						RedoCommand.RaiseCanExecuteChanged();
 
-                        _musicLoader.LoadLilypondIntoWpfStaffsAndMidi(LilypondText);
+						_musicLoader.LoadLilypondIntoWpfStaffsAndMidi(LilypondText);
                         _mainViewModel.CurrentState = "";
                     }
                 }, TaskScheduler.FromCurrentSynchronizationContext()); // Request from main thread.
@@ -94,18 +106,19 @@ namespace DPA_Musicsheets.ViewModels
         #region Commands for buttons like Undo, Redo and SaveAs
         public RelayCommand UndoCommand => new RelayCommand(() =>
         {
-            _nextText = LilypondText;
-            LilypondText = _previousText;
-            _previousText = null;
-        }, () => _previousText != null && _previousText != LilypondText);
+			_movedInHistory = true;
+			_caretaker.undo();
+			RaisePropertyChanged(() => LilypondText);
+			
+		}, () => _caretaker.canUndo());
 
         public RelayCommand RedoCommand => new RelayCommand(() =>
         {
-            _previousText = LilypondText;
-            LilypondText = _nextText;
-            _nextText = null;
-            RedoCommand.RaiseCanExecuteChanged();
-        }, () => _nextText != null && _nextText != LilypondText);
+			_movedInHistory = true;
+			_caretaker.redo();
+			RaisePropertyChanged(() => LilypondText);
+			
+        }, () => _caretaker.canRedo());
 
         public ICommand SaveAsCommand => new RelayCommand(() =>
         {

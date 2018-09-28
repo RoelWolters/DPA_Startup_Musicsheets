@@ -121,6 +121,10 @@
     <Compile Include="ViewModels\LilypondText.cs" />
     <Compile Include="ViewModels\LilypondTextCaretaker.cs" />
     <Compile Include="ViewModels\LilypondTextMemento.cs" />
+    <Compile Include="States\BaseEditorState.cs" />
+    <Compile Include="States\EditedState.cs" />
+    <Compile Include="States\IEditorStatable.cs" />
+    <Compile Include="States\NotEditedState.cs" />
     <Compile Include="ViewModels\MidiPlayerViewModel.cs" />
     <Compile Include="ViewModels\StaffsViewModel.cs" />
     <Compile Include="Views\MidiPlayerCtrl.xaml.cs">

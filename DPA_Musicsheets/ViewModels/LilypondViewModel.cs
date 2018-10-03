@@ -57,6 +57,7 @@ namespace DPA_Musicsheets.ViewModels
 			_movedInHistory = false;
 
 			LilypondText = "Your lilypond text will appear here.";
+			_caretaker.add();
 			UndoCommand.RaiseCanExecuteChanged();
 			RedoCommand.RaiseCanExecuteChanged();
 		}
@@ -66,6 +67,7 @@ namespace DPA_Musicsheets.ViewModels
             _textChangedByLoad = true;
 			_caretaker.reset();
 			LilypondText = text;
+			_caretaker.add();
 			UndoCommand.RaiseCanExecuteChanged();
 			RedoCommand.RaiseCanExecuteChanged();
 			_textChangedByLoad = false;
@@ -95,6 +97,7 @@ namespace DPA_Musicsheets.ViewModels
 						// An undo or a redo (a 'move in history') should not be treated as a timeline change.
 						if (!_movedInHistory) {
 							_caretaker.add();
+						} else {
 							_movedInHistory = false;
 						}
 						UndoCommand.RaiseCanExecuteChanged();

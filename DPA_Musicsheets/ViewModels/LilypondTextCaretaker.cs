@@ -20,17 +20,18 @@ namespace DPA_Musicsheets.ViewModels {
 		// A new file has been loaded in the originator
 		// or we need to initialize ourselves.
 		public void reset() {
-			actions = new ArrayList(1000000);
-			current = -1;
+			actions = new ArrayList();
+			current = -1; // If current is -1, that means there is no 'current' textbox state.
+			// We should add() an initial memento as the 'current' state whenever we reset().
 		}
 
-		// Text will change in the originator.
+		// Text has changed in the originator.
 		// Add a new memento. All previously
 		// redoable actions are removed.
 		public void add() {
+			actions = actions.GetRange(0, current+1);
 			current++;
 			actions.Insert(current, originator.saveMemento());
-			actions = actions.GetRange(0, current+1);
 		}
 
 		// Should our 'undo' button be available?

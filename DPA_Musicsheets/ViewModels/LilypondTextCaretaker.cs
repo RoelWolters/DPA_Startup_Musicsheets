@@ -22,13 +22,13 @@ namespace DPA_Musicsheets.ViewModels {
 		public void reset() {
 			actions = new ArrayList();
 			current = -1; // If current is -1, that means there is no 'current' textbox state.
-			// We should add() an initial memento as the 'current' state whenever we reset().
+			// We should change() to create an initial state whenever we reset().
 		}
 
 		// Text has changed in the originator.
 		// Add a new memento. All previously
 		// redoable actions are removed.
-		public void add() {
+		public void change() {
 			actions = actions.GetRange(0, current+1);
 			current++;
 			actions.Insert(current, originator.saveMemento());
@@ -40,7 +40,7 @@ namespace DPA_Musicsheets.ViewModels {
 		}
 
 		// User selected 'undo'. Move our 'current'
-		// pointer one position to the right if possible
+		// pointer one position to the left if possible
 		// and restore that memento to the originator.
 		public void undo() {
 			if (canUndo()) {
@@ -55,7 +55,7 @@ namespace DPA_Musicsheets.ViewModels {
 		}
 
 		// User selected 'redo'. Move our 'current'
-		// pointer one position to the left if possible
+		// pointer one position to therightt if possible
 		// and restore that memento to the originator.
 		public void redo() {
 			if (canRedo()) {

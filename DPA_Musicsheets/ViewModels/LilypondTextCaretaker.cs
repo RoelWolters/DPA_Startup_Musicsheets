@@ -40,7 +40,7 @@ namespace DPA_Musicsheets.ViewModels {
 		}
 
 		// User selected 'undo'. Move our 'current'
-		// pointer one position to the left if possible
+		// pointer one position back if possible
 		// and restore that memento to the originator.
 		public void undo() {
 			if (canUndo()) {
@@ -55,7 +55,7 @@ namespace DPA_Musicsheets.ViewModels {
 		}
 
 		// User selected 'redo'. Move our 'current'
-		// pointer one position to therightt if possible
+		// pointer one position forward if possible
 		// and restore that memento to the originator.
 		public void redo() {
 			if (canRedo()) {

@@ -103,12 +103,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Models\NoteModels\Bar.cs" />
+    <Compile Include="Models\NoteModels\BarComposite.cs" />
     <Compile Include="Models\NoteModels\Modifier.cs" />
-    <Compile Include="Models\NoteModels\Note.cs" />
+    <Compile Include="Models\NoteModels\NoteLeaf.cs" />
     <Compile Include="Models\NoteModels\NoteLength.cs" />
+    <Compile Include="Models\NoteModels\RepeatComposite.cs" />
     <Compile Include="Models\NoteModels\Song.cs" />
-    <Compile Include="Models\NoteModels\Tempo.cs" />
+    <Compile Include="Models\NoteModels\SongComponent.cs" />
+    <Compile Include="Models\NoteModels\TempoComposite.cs" />
     <Compile Include="Models\NoteModels\Tone.cs" />
     <Compile Include="Models\NoteModels\ToneHeight.cs" />
     <Compile Include="Parsers\IParser.cs" />

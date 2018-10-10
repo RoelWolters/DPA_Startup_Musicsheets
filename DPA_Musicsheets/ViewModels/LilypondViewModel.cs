@@ -40,7 +40,6 @@ namespace DPA_Musicsheets.ViewModels
         private bool _textChangedByLoad = false;
         private DateTime _lastChange;
         private static int MILLISECONDS_BEFORE_CHANGE_HANDLED = 1500;
-        private bool _waitingForRender = false;
 
 
 
@@ -83,8 +82,6 @@ namespace DPA_Musicsheets.ViewModels
             if (!_textChangedByLoad)
             {
                 _mainViewModel.State = new EditedState();
-                
-                _waitingForRender = true;
                 _lastChange = DateTime.Now;
 
                 _mainViewModel.CurrentState = "Rendering...";
@@ -93,7 +90,6 @@ namespace DPA_Musicsheets.ViewModels
                 {
                     if ((DateTime.Now - _lastChange).TotalMilliseconds >= MILLISECONDS_BEFORE_CHANGE_HANDLED)
                     {
-                        _waitingForRender = false;
 						// An undo or a redo (a 'move in history') should not be treated as a timeline change.
 						if (!_movedInHistory) {
 							_caretaker.change();

@@ -5,11 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace DPA_Musicsheets.Models {
-    public class Song {
-        public Song(List<SongComponent> melody) {
-            this.melody = melody;
-        }
+    public class BarComposite : SongComposite {
 
-        List<SongComponent> melody;
     }
 }

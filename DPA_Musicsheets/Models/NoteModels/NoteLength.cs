@@ -6,20 +6,21 @@ using System.Threading.Tasks;
 
 namespace DPA_Musicsheets.Models {
      public class NoteLength {
-        public NoteLength(double value, bool point) {
+        public NoteLength(double value, int points) {
             this.value = value;
-            this.point = point;
+            this.points = points;
         }
 
         double Length {
             get {
-                if (point) {
-                    return value * 1.5;
+				double returnValue = value;
+                for (int i=1;i<points;i++) {
+					returnValue += 0.5 * value;
                 }
-                return value;
+                return returnValue;
             }
         }
         double value;
-        bool point;
+        int points;
     }
 }

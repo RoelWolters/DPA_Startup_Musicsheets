@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace DPA_Musicsheets.Models {
-    public class NoteLeaf : SongComponent {
+    public class NoteLeaf : SongLeaf {
         public NoteLeaf(Tone tone, NoteLength length) {
             this.tone = tone;
             this.length = length;
@@ -19,8 +19,6 @@ namespace DPA_Musicsheets.Models {
 		Tone tone; // A null value indicates a rest.
         NoteLength length;
 
-		public List<NoteLeaf> getAll() {
-			return new List<NoteLeaf>() { this };
-		}
+		
     }
 }

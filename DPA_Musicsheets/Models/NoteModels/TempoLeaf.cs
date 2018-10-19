@@ -5,16 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace DPA_Musicsheets.Models {
-    public class TempoComposite : SongComposite {
+    public class TempoLeaf : SongLeaf {
         // Create from correct notation
-        public TempoComposite(int amount, int realScale, int speed) {
+        public TempoLeaf(int amount, int realScale, int speed) {
             this.amount = amount;
             this.scale = 1 / realScale;
             this.speed = speed;
         }
 
         // Create from internal notation
-        public TempoComposite(int amount, double internalScale, int speed) {
+        public TempoLeaf(int amount, double internalScale, int speed) {
             this.amount = amount;
             this.scale = internalScale;
             this.speed = speed;

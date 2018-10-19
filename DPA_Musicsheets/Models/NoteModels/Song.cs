@@ -6,10 +6,15 @@ using System.Threading.Tasks;
 
 namespace DPA_Musicsheets.Models {
     public class Song {
-        public Song(List<SongComponent> melody) {
-            this.melody = melody;
-        }
+        List<SongComponent> components;
 
-        List<SongComponent> melody;
+		public List<SongLeaf> getAll() {
+			List<SongLeaf> notes = new List<SongLeaf>();
+			foreach (SongComponent component in components)
+			{
+				notes.AddRange(component.getAll());
+			}
+			return notes;
+		}
     }
 }

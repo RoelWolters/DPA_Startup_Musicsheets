@@ -23,8 +23,8 @@ namespace DPA_Musicsheets.Models.NoteModels {
 		List<SongComponent> firstAlternative;
 		List<SongComponent> lastAlternative;
 
-		public override List<NoteLeaf> getAll() {
-			List<NoteLeaf> notes = new List<NoteLeaf>();
+		public override List<SongLeaf> getAll() {
+			List<SongLeaf> notes = new List<SongLeaf>();
 			foreach (SongComponent component in components) {
 				for (int i=0;i<repeats;i++) {
 					notes.AddRange(component.getAll());

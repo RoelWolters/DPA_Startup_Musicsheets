@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace DPA_Musicsheets.Models {
     public enum ToneHeight {
-        C,
-        D,
-        E,
-        F,
-        G,
-        A,
-        B
+        c,
+        d,
+        e,
+        f,
+        g,
+        a,
+        b
     }
 }

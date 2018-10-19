@@ -110,6 +110,7 @@
     <Compile Include="Models\NoteModels\RepeatComposite.cs" />
     <Compile Include="Models\NoteModels\Song.cs" />
     <Compile Include="Models\NoteModels\SongComponent.cs" />
+    <Compile Include="Models\NoteModels\SongComposite.cs" />
     <Compile Include="Models\NoteModels\TempoComposite.cs" />
     <Compile Include="Models\NoteModels\Tone.cs" />
     <Compile Include="Models\NoteModels\ToneHeight.cs" />

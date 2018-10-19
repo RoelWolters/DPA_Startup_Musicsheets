@@ -9,8 +9,8 @@ namespace DPA_Musicsheets.Models {
 
 		public List<SongComponent> components;
 
-		public virtual List<NoteLeaf> getAll() {
-			List<NoteLeaf> notes = new List<NoteLeaf>();
+		public virtual List<SongLeaf> getAll() {
+			List<SongLeaf> notes = new List<SongLeaf>();
 			foreach (SongComponent component in components) {
 				notes.AddRange(component.getAll());
 			}

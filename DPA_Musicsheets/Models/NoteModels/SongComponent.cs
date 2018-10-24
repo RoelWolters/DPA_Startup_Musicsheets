@@ -11,6 +11,7 @@ namespace DPA_Musicsheets.Models {
 		// NoteLeaf:				Notes and rests; song elements with a length and optionally a tone.
 		// BarlineLeaf:				A barline. Barlines have no variable properties.
 		// TempoLeaf:				A change in tempo or time. Basically, any song element that changes our speed.
+		// ClefLeaf:				À new clef to replace the previous one, can have types bass or treble.
 		// --- SongComposite:		Groups of notes that are nestable and/or return their list of NoteLeaves in a special way.
 		// RepeatComposite:			A repeat section. Repeats a certain number of times and may have an alternative ending.
 

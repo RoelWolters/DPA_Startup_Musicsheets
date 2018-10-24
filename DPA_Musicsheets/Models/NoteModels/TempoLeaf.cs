@@ -7,26 +7,14 @@ using System.Threading.Tasks;
 namespace DPA_Musicsheets.Models {
     public class TempoLeaf : SongLeaf {
         // Create from correct notation
-        public TempoLeaf(int amount, int realScale, int speed) {
+        public TempoLeaf(int amount, int scale, int speed) {
             this.amount = amount;
-            this.scale = 1 / realScale;
+			this.scale = scale;
             this.speed = speed;
         }
 
-        // Create from internal notation
-        public TempoLeaf(int amount, double internalScale, int speed) {
-            this.amount = amount;
-            this.scale = internalScale;
-            this.speed = speed;
-        }
-
-		// Calculate correct notation
-		double RealScale { get {
-                return 1 / scale;
-            }
-        }
-        int amount;
-        double scale;
-        int speed;
+        public int amount;
+        public int scale;
+        public int speed;
     }
 }

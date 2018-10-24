@@ -104,6 +104,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Models\NoteModels\BarComposite.cs" />
+    <Compile Include="Models\NoteModels\BarlineLeaf.cs" />
+    <Compile Include="Models\NoteModels\ClefLeaf.cs" />
     <Compile Include="Models\NoteModels\Modifier.cs" />
     <Compile Include="Models\NoteModels\NoteLeaf.cs" />
     <Compile Include="Models\NoteModels\NoteLength.cs" />
@@ -111,7 +113,8 @@
     <Compile Include="Models\NoteModels\Song.cs" />
     <Compile Include="Models\NoteModels\SongComponent.cs" />
     <Compile Include="Models\NoteModels\SongComposite.cs" />
-    <Compile Include="Models\NoteModels\TempoComposite.cs" />
+    <Compile Include="Models\NoteModels\SongLeaf.cs" />
+    <Compile Include="Models\NoteModels\TempoLeaf.cs" />
     <Compile Include="Models\NoteModels\Tone.cs" />
     <Compile Include="Models\NoteModels\ToneHeight.cs" />
     <Compile Include="Parsers\IParser.cs" />
@@ -121,6 +124,7 @@
     <Compile Include="Models\LilypondToken.cs" />
     <Compile Include="Models\LilypondTokenKind.cs" />
     <Compile Include="Factories\ParserFactory.cs" />
+    <Compile Include="Parsers\ToWPFFactory.cs" />
     <Compile Include="ViewModels\LilypondText.cs" />
     <Compile Include="ViewModels\LilypondTextCaretaker.cs" />
     <Compile Include="ViewModels\LilypondTextMemento.cs" />

@@ -12,8 +12,8 @@ namespace DPA_Musicsheets.Models {
             this.octave = octave;
         }
 
-        ToneHeight height;
-        Modifier modifier;
-        int octave;
+        public ToneHeight height;
+        public Modifier modifier;
+        public int octave;
     }
 }

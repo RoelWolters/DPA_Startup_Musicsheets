@@ -11,7 +11,7 @@ namespace DPA_Musicsheets.Models {
             this.points = points;
         }
 
-        double Length {
+        public double Length {
             get {
 				double returnValue = value;
                 for (int i=1;i<points;i++) {
@@ -20,7 +20,8 @@ namespace DPA_Musicsheets.Models {
                 return returnValue;
             }
         }
-        double value;
-        int points;
+
+        public double value;
+        public int points;
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DPA_Musicsheets.Models {
     public class Song {
-        List<SongComponent> components;
+        public List<SongComponent> components;
 
 		public List<SongLeaf> getAll() {
 			List<SongLeaf> notes = new List<SongLeaf>();

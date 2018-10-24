@@ -20,8 +20,8 @@ namespace DPA_Musicsheets.Models.NoteModels {
 			lastAlternative = new List<SongComponent>();
 		}
 
-		List<SongComponent> firstAlternative;
-		List<SongComponent> lastAlternative;
+		public List<SongComponent> firstAlternative;
+		public List<SongComponent> lastAlternative;
 
 		public override List<SongLeaf> getAll() {
 			List<SongLeaf> notes = new List<SongLeaf>();

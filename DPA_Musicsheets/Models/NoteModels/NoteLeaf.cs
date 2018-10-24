@@ -16,8 +16,8 @@ namespace DPA_Musicsheets.Models {
 			this.length = length;
 		}
 
-		Tone tone; // A null value indicates a rest.
-        NoteLength length;
+		public Tone tone; // A null value indicates a rest.
+        public NoteLength length;
 
 		
     }

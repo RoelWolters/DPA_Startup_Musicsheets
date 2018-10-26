@@ -195,12 +195,12 @@ namespace DPA_Musicsheets.Managers
 		// I created an interface called ISaver. It takes a filename and LilypondText in its save() method. Our MidiSaver derives from it.
 		// To do this, go to that class, convert LilypondText to our model Song, convert that to a midi Sequence, and finally save that sequence.
 		// We should probably have a class for both of these conversions, too.
-		internal void SaveToMidi(string fileName) 
-        {
-            Sequence sequence = GetSequenceFromWPFStaffs();
-
-            sequence.Save(fileName);
-        }
+		//internal void SaveToMidi(string fileName) 
+        //{
+        //    Sequence sequence = GetSequenceFromWPFStaffs();
+		//
+        //    sequence.Save(fileName);
+        //}
         
         /// <summary>
         /// We create MIDI from WPF staffs, 2 different dependencies, not a good practice.

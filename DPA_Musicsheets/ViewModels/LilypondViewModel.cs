@@ -131,22 +131,13 @@ namespace DPA_Musicsheets.ViewModels
             if (saveFileDialog.ShowDialog() == true)
             {
                 string extension = Path.GetExtension(saveFileDialog.FileName);
-                if (extension.EndsWith(".mid"))
-                {
-                    _musicLoader.SaveToMidi(saveFileDialog.FileName);
-                }
-                else if (extension.EndsWith(".ly"))
-                {
-                    _musicLoader.SaveToLilypond(saveFileDialog.FileName);
-                }
-                else if (extension.EndsWith(".pdf"))
-                {
-                    _musicLoader.SaveToPDF(saveFileDialog.FileName);
-                }
-                else
-                {
-                    MessageBox.Show($"Extension {extension} is not supported.");
-                }
+				SaverFactory factory = new SaverFactory();
+				ISaver saver = factory.createSaver(extension);
+				if (saver != null){
+					saver.save(saveFileDialog.FileName, LilypondText);
+				} else {
+					MessageBox.Show($"Extension {extension} is not supported.");
+				}
 
                 _mainViewModel.State = new NotEditedState();
             }

@@ -103,6 +103,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Managers\ISaver.cs" />
+    <Compile Include="Managers\MidiSaver.cs" />
+    <Compile Include="Managers\SaverFactory.cs" />
+    <Compile Include="Managers\LilypondSaver.cs" />
+    <Compile Include="Managers\PDFSaver.cs" />
     <Compile Include="Models\NoteModels\BarComposite.cs" />
     <Compile Include="Models\NoteModels\BarlineLeaf.cs" />
     <Compile Include="Models\NoteModels\ClefLeaf.cs" />

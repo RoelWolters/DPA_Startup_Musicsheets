@@ -190,10 +190,12 @@ namespace DPA_Musicsheets.Managers
 
             return tokens;
         }
-        #endregion Staffs loading (loads lilypond to WPF staffs)
+		#endregion Staffs loading (loads lilypond to WPF staffs)
 
-        #region Saving to files
-        internal void SaveToMidi(string fileName)
+		// I created an interface called ISaver. It takes a filename and LilypondText in its save() method. Our MidiSaver derives from it.
+		// To do this, go to that class, convert LilypondText to our model Song, convert that to a midi Sequence, and finally save that sequence.
+		// We should probably have a class for both of these conversions, too.
+		internal void SaveToMidi(string fileName) 
         {
             Sequence sequence = GetSequenceFromWPFStaffs();
 
@@ -268,47 +270,5 @@ namespace DPA_Musicsheets.Managers
             return sequence;
         }
 
-        internal void SaveToPDF(string fileName)
-        {
-            string withoutExtension = Path.GetFileNameWithoutExtension(fileName);
-            string tmpFileName = $"{fileName}-tmp.ly";
-            SaveToLilypond(tmpFileName);
-
-            string lilypondLocation = @"C:\Program Files (x86)\LilyPond\usr\bin\lilypond.exe";
-            string sourceFolder = Path.GetDirectoryName(tmpFileName);
-            string sourceFileName = Path.GetFileNameWithoutExtension(tmpFileName);
-            string targetFolder = Path.GetDirectoryName(fileName);
-            string targetFileName = Path.GetFileNameWithoutExtension(fileName);
-
-            var process = new Process
-            {
-                StartInfo =
-                {
-                    WorkingDirectory = sourceFolder,
-                    WindowStyle = ProcessWindowStyle.Hidden,
-                    Arguments = String.Format("--pdf \"{0}\\{1}.ly\"", sourceFolder, sourceFileName),
-                    FileName = lilypondLocation
-                }
-            };
-
-            process.Start();
-            while (!process.HasExited) { /* Wait for exit */
-                }
-                if (sourceFolder != targetFolder || sourceFileName != targetFileName)
-            {
-                File.Move(sourceFolder + "\\" + sourceFileName + ".pdf", targetFolder + "\\" + targetFileName + ".pdf");
-                File.Delete(tmpFileName);
-            }
-        }
-
-        internal void SaveToLilypond(string fileName)
-        {
-            using (StreamWriter outputFile = new StreamWriter(fileName))
-            {
-                outputFile.Write(LilypondText);
-                outputFile.Close();
-            }
-        }
-        #endregion Saving to files
     }
 }

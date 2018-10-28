@@ -1,0 +1,347 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="DPA_Musicsheets.Managers.ChainOfResponsibility">
+    <Position X="0.75" Y="5.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAEAAAAAAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>Managers\Chain of Responsibility\ChainOfResponsibility.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DPA_Musicsheets.Managers.ChainElement">
+    <Position X="1.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQAIAAAAAgAAAAKAAAAAAAAAAAA=</HashCode>
+      <FileName>Managers\Chain of Responsibility\ChainElement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DPA_Musicsheets.Managers.KeyHandler">
+    <Position X="3.25" Y="3" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAQgAACAAgEACAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Managers\KeyHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DPA_Musicsheets.Managers.CommandHandler">
+    <Position X="6" Y="5.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAIAAAAAAAEAAAAAAIAAAIAAAAAAAIAAAAA=</HashCode>
+      <FileName>Managers\Commands\CommandHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DPA_Musicsheets.Managers.Command">
+    <Position X="4.25" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAQAAACAAEEAAAAAAAAAAAIAAAAFAAAAAA=</HashCode>
+      <FileName>Managers\Commands\Command.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DPA_Musicsheets.Managers.SaverFactory">
+    <Position X="8.25" Y="4.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Managers\Savers\SaverFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DPA_Musicsheets.Managers.LoaderFactory">
+    <Position X="10.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAEAAAAAAAAAA=</HashCode>
+      <FileName>Managers\Loaders\LoaderFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DPA_Musicsheets.Managers.Openers.ChooseFile">
+    <Position X="10.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Managers\Loaders\ChooseFile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DPA_Musicsheets.ViewModels.MainViewModel">
+    <Position X="8.25" Y="0.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACABQAIIAACCAABAAAAAIAAAAABABAEBE=</HashCode>
+      <FileName>ViewModels\MainViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DPA_Musicsheets.Managers.MusicLoader">
+    <Position X="5.5" Y="1.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>EAAAACAAACAAABCACBBAACAAIIAACAAAAACABAAAAAA=</HashCode>
+      <FileName>Managers\MusicLoader.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DPA_Musicsheets.Managers.Commands.InsertTextCommand" Collapsed="true">
+    <Position X="2.5" Y="10.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAEAACAAAAAAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>Managers\Commands\InsertTextCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DPA_Musicsheets.Managers.Commands.OpenCommand" Collapsed="true">
+    <Position X="3.25" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>Managers\Commands\OpenCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DPA_Musicsheets.Managers.Commands.SaveCommand" Collapsed="true">
+    <Position X="5.25" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAACAAAAAAAEAAAAAAAAAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>Managers\Commands\SaveCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DPA_Musicsheets.Managers.Commands.SurroundWithTextCommand" Collapsed="true">
+    <Position X="5.25" Y="10.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAAAAAAAAAAEAAAAAAAgAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>Managers\Commands\SurroundWithTextCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DPA_Musicsheets.Managers.LilypondLoader" Collapsed="true">
+    <Position X="10.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Managers\Loaders\LilypondLoader.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DPA_Musicsheets.Managers.MidiLoader" Collapsed="true">
+    <Position X="10.75" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Managers\Loaders\MidiLoader.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DPA_Musicsheets.Managers.LilypondSaver" Collapsed="true">
+    <Position X="8.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Managers\Savers\LilypondSaver.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DPA_Musicsheets.Managers.MidiSaver" Collapsed="true">
+    <Position X="8.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Managers\Savers\MidiSaver.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DPA_Musicsheets.Managers.PDFSaver" Collapsed="true">
+    <Position X="8.5" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Managers\Savers\PDFSaver.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DPA_Musicsheets.ViewModels.LilypondViewModel">
+    <Position X="9" Y="10.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAJACAAAAAKQAAAAAAAIAAAAIAAIAIIAAAAAAAAACk=</HashCode>
+      <FileName>ViewModels\LilypondViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DPA_Musicsheets.ViewModels.LilypondTextCaretaker">
+    <Position X="6.5" Y="12.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAEAEAEAAAAACAAAAEAAAAAgAAAAAAAAQAAAAAAAQA=</HashCode>
+      <FileName>ViewModels\LilypondTextCaretaker.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DPA_Musicsheets.ViewModels.LilypondTextMemento">
+    <Position X="4.25" Y="12.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>ViewModels\LilypondTextMemento.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DPA_Musicsheets.ViewModels.LilypondText">
+    <Position X="11" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAACgAAAAA=</HashCode>
+      <FileName>ViewModels\LilypondText.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DPA_Musicsheets.ViewModels.StaffsViewModel">
+    <Position X="11.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\StaffsViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DPA_Musicsheets.States.EditedState">
+    <Position X="0.5" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>States\EditedState.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DPA_Musicsheets.States.BaseEditorState">
+    <Position X="1.5" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>States\BaseEditorState.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DPA_Musicsheets.States.NotEditedState">
+    <Position X="2.5" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>States\NotEditedState.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DPA_Musicsheets.Models.Song">
+    <Position X="14" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAIAAAA=</HashCode>
+      <FileName>Models\NoteModels\Song.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DPA_Musicsheets.Models.SongComposite">
+    <Position X="12.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAIAAAA=</HashCode>
+      <FileName>Models\NoteModels\SongComposite.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DPA_Musicsheets.Models.SongLeaf">
+    <Position X="15" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAA=</HashCode>
+      <FileName>Models\NoteModels\SongLeaf.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DPA_Musicsheets.Models.NoteModels.BarlineLeaf">
+    <Position X="16.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\NoteModels\BarlineLeaf.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DPA_Musicsheets.Models.NoteModels.ClefLeaf">
+    <Position X="18.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\NoteModels\ClefLeaf.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DPA_Musicsheets.Models.TempoLeaf">
+    <Position X="16.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAACAAAAgQAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\NoteModels\TempoLeaf.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DPA_Musicsheets.Models.NoteLeaf">
+    <Position X="14.5" Y="6.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\NoteModels\NoteLeaf.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DPA_Musicsheets.Models.NoteModels.RepeatComposite">
+    <Position X="12.5" Y="6.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAgQAAAIAAAA=</HashCode>
+      <FileName>Models\NoteModels\RepeatComposite.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DPA_Musicsheets.Models.Tone">
+    <Position X="14.75" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>Models\NoteModels\Tone.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DPA_Musicsheets.Models.NoteLength">
+    <Position X="16.75" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAAAAAAAAAAABAAAAAACAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\NoteModels\NoteLength.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DPA_Musicsheets.Parsers.ToWPFConverter">
+    <Position X="15.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAECAAAAAEAAAAAAAAAAAAAACAAAQAAAAAA=</HashCode>
+      <FileName>Parsers\ToWPFConverter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DPA_Musicsheets.Parsers.MidiParser">
+    <Position X="18.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EACgQAAAAAEIAACAAAAAAAAAiAAAAAAAAACCBAAAQIA=</HashCode>
+      <FileName>Parsers\MidiParser.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DPA_Musicsheets.Factories.ParserFactory">
+    <Position X="16.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>Factories\ParserFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="DPA_Musicsheets.Managers.ISaver">
+    <Position X="8.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Managers\Savers\ISaver.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DPA_Musicsheets.Managers.ILoader">
+    <Position X="10.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Managers\Loaders\ILoader.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DPA_Musicsheets.States.IEditorStatable">
+    <Position X="0.75" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>States\IEditorStatable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DPA_Musicsheets.Models.SongComponent">
+    <Position X="14" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAA=</HashCode>
+      <FileName>Models\NoteModels\SongComponent.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DPA_Musicsheets.Parsers.IParser">
+    <Position X="18.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Parsers\IParser.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="DPA_Musicsheets.Models.ToneHeight">
+    <Position X="13" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAvgEAAAA=</HashCode>
+      <FileName>Models\NoteModels\ToneHeight.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DPA_Musicsheets.Models.Modifier">
+    <Position X="14.75" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Models\NoteModels\Modifier.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

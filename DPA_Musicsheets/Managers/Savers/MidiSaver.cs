@@ -21,7 +21,6 @@ namespace DPA_Musicsheets.Managers
 		// For reference purposes. We can't actually access our WPF Staffs or that other information from LilypondViewModel.
 		public void save(string fileName, List<MusicalSymbol> WPFStaffs, int bpm, int beatNote, int beatsPerBar)
 		{
-
 			Sequence sequence = GetSequenceFromWPFStaffs(WPFStaffs, bpm, beatNote, beatsPerBar);
 
 			sequence.Save(fileName);

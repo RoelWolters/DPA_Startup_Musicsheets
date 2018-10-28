@@ -208,6 +208,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="ClassDiagram1.cd" />
     <None Include="ClassDiagrams\CD_DPA_Musicsheets.cd" />
     <None Include="Files\Eenvoudige voorbeeldfiles\Doorklinken.pdf" />
     <None Include="Files\Eenvoudige voorbeeldfiles\Keywords.pdf" />

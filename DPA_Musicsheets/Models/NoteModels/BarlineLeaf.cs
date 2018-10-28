@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DPA_Musicsheets.Models.NoteModels
 {
-	class BarlineLeaf
+	class BarlineLeaf : SongLeaf
 	{
 		// A barline can't have variable properties, but it can't be described as a note and making it a base SongLeaf would be incorrect.
 	}

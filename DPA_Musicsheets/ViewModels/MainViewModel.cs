@@ -95,6 +95,6 @@ namespace DPA_Musicsheets.ViewModels
         {
             ViewModelLocator.Cleanup();
         });
-        #endregion Focus and key commands, these can be used for implementing hotkeys
-    }
+		#endregion Focus and key commands, these can be used for implementing hotkeys
+	}
 }

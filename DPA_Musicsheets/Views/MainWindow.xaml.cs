@@ -21,6 +21,7 @@ using System.Windows.Shapes;
 using DPA_Musicsheets;
 using PSAMWPFControlLibrary;
 using DPA_Musicsheets.ViewModels;
+using DPA_Musicsheets.Managers;
 
 namespace DPA_Musicsheets
 {
@@ -33,5 +34,10 @@ namespace DPA_Musicsheets
         {
             InitializeComponent();
         }
-    }
+
+		private void TextChanged(object sender, TextChangedEventArgs e)
+		{
+			KeyHandler.openFileBox = (TextBox)sender;
+		}
+	}
 }

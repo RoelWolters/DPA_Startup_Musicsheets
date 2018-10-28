@@ -1,4 +1,5 @@
 ﻿using DPA_Musicsheets.Managers;
+using DPA_Musicsheets.Managers.Openers;
 using DPA_Musicsheets.States;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
@@ -7,6 +8,7 @@ using PSAMWPFControlLibrary;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,7 +19,10 @@ namespace DPA_Musicsheets.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
-        private string _fileName;
+		// Handling keys is a functionality that should always be available.
+		private KeyHandler keyHandler = new KeyHandler();
+
+		private string _fileName;
         public string FileName
         {
             get
@@ -60,33 +65,31 @@ namespace DPA_Musicsheets.ViewModels
 
         public ICommand OpenFileCommand => new RelayCommand(() =>
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog() { Filter = "Midi or LilyPond files (*.mid *.ly)|*.mid;*.ly" };
-            if (openFileDialog.ShowDialog() == true)
-            {
-                FileName = openFileDialog.FileName;
-            }
+			FileName = ChooseFile.getFileChoice();
         });
 
         public ICommand LoadCommand => new RelayCommand(() =>
         {
-            _musicLoader.OpenFile(FileName);
-        });
+			ILoader loader = new LoaderFactory().createLoader(Path.GetExtension(FileName));
+			string loadedText = loader.load(FileName);
+			_musicLoader.LoadLilypondIntoWpfStaffsAndMidi(loadedText);
+		});
 
-        #region Focus and key commands, these can be used for implementing hotkeys
+		#region Focus and key commands, these can be used for implementing hotkeys
         public ICommand OnLostFocusCommand => new RelayCommand(() =>
         {
-            Console.WriteLine("Maingrid Lost focus");
+			keyHandler.LostFocus();
         });
 
         public ICommand OnKeyDownCommand => new RelayCommand<KeyEventArgs>((e) =>
         {
-            Console.WriteLine($"Key down: {e.Key}");
+			keyHandler.KeyDown(e);
         });
 
-        public ICommand OnKeyUpCommand => new RelayCommand(() =>
+        public ICommand OnKeyUpCommand => new RelayCommand<KeyEventArgs>((e) =>
         {
-            Console.WriteLine("Key Up");
-        });
+			keyHandler.KeyUp(e);
+		});
 
         public ICommand OnWindowClosingCommand => new RelayCommand(() =>
         {

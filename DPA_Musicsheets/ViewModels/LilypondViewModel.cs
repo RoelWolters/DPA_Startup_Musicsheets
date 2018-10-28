@@ -106,8 +106,8 @@ namespace DPA_Musicsheets.ViewModels
             }
         });
 
-        #region Commands for buttons like Undo, Redo and SaveAs
-        public RelayCommand UndoCommand => new RelayCommand(() =>
+		#region Commands for buttons like Undo, Redo and SaveAs
+		public RelayCommand UndoCommand => new RelayCommand(() =>
         {
 			_movedInHistory = true;
 			_caretaker.undo();

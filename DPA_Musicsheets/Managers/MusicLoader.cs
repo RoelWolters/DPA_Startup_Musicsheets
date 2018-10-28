@@ -43,44 +43,6 @@ namespace DPA_Musicsheets.Managers
         public StaffsViewModel StaffsViewModel { get; set; }
 
         /// <summary>
-        /// Opens a file.
-        /// TODO: Remove the switch cases and delegate.
-        /// TODO: Remove the knowledge of filetypes. What if we want to support MusicXML later?
-        /// TODO: Remove the calling of the outer viewmodel layer. We want to be able reuse this in an ASP.NET Core application for example.
-        /// </summary>
-        /// <param name="fileName"></param>
-        public void OpenFile(string fileName)
-        {
-            if (Path.GetExtension(fileName).EndsWith(".mid"))
-            {
-                MidiSequence = new Sequence();
-                MidiSequence.Load(fileName);
-
-                MidiPlayerViewModel.MidiSequence = MidiSequence;
-                LilypondText = LoadIntoLilyPond(MidiSequence, ".mid");
-                Console.WriteLine(this.LilypondText);
-                this.LilypondViewModel.LilypondTextLoaded(this.LilypondText);
-            }
-            else if (Path.GetExtension(fileName).EndsWith(".ly"))
-            {
-                StringBuilder sb = new StringBuilder();
-                foreach (var line in File.ReadAllLines(fileName))
-                {
-                    sb.AppendLine(line);
-                }
-                
-                this.LilypondText = sb.ToString();
-                this.LilypondViewModel.LilypondTextLoaded(this.LilypondText);
-            }
-            else
-            {
-                throw new NotSupportedException($"File extension {Path.GetExtension(fileName)} is not supported.");
-            }
-
-            LoadLilypondIntoWpfStaffsAndMidi(LilypondText);
-        }
-
-        /// <summary>
         /// This creates WPF staffs and MIDI from Lilypond.
         /// TODO: Remove the dependencies from one language to another. If we want to replace the WPF library with another for example, we have to rewrite all logic.
         /// TODO: Create our own domain classes to be independent of external libraries/languages.
@@ -93,7 +55,8 @@ namespace DPA_Musicsheets.Managers
             LinkedList<LilypondToken> tokens = GetTokensFromLilypond(content);
             WPFStaffs.Clear();
 
-			WPFStaffs.AddRange(new ToWPFFactory().parseToWPF(new Song() {
+			// We use a hard-coded Song to test Domain to WPF converting, as we don't have a Lilypond to Domain converter.
+			WPFStaffs.AddRange(new ToWPFConverter().parseToWPF(new Song() {
 				components = new List<SongComponent>() {
 					new ClefLeaf("treble"),
 					new TempoLeaf(4, 4, 120),
@@ -130,18 +93,6 @@ namespace DPA_Musicsheets.Managers
             MidiSequence = GetSequenceFromWPFStaffs();
             MidiPlayerViewModel.MidiSequence = MidiSequence;
         }
-
-        #region Midi loading (loads midi to lilypond)
-
-        public string LoadIntoLilyPond(Sequence sequence, string type)
-        {
-            ParserFactory factory = new ParserFactory();
-            IParser parser = factory.CreateParser(type);
-
-            return parser.Parse(sequence);
-        }
-
-        #endregion Midiloading (loads midi to lilypond)
 
         #region Staffs loading (loads lilypond to WPF staffs)
 
@@ -195,12 +146,6 @@ namespace DPA_Musicsheets.Managers
 		// I created an interface called ISaver. It takes a filename and LilypondText in its save() method. Our MidiSaver derives from it.
 		// To do this, go to that class, convert LilypondText to our model Song, convert that to a midi Sequence, and finally save that sequence.
 		// We should probably have a class for both of these conversions, too.
-		//internal void SaveToMidi(string fileName) 
-        //{
-        //    Sequence sequence = GetSequenceFromWPFStaffs();
-		//
-        //    sequence.Save(fileName);
-        //}
         
         /// <summary>
         /// We create MIDI from WPF staffs, 2 different dependencies, not a good practice.

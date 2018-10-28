@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DPA_Musicsheets.Parsers
 {
-	class ToWPFFactory {
+	class ToWPFConverter {
 
 		public IEnumerable<MusicalSymbol> parseToWPF(Song song, int repeatNum = 0)
 		{

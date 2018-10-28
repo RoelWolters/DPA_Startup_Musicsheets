@@ -9,7 +9,7 @@ namespace DPA_Musicsheets.Managers
 {
 	public class LilypondSaver : ISaver {
 		public void save(string fileName, string LpText) {
-			using (StreamWriter outputFile = new StreamWriter(fileName)) {
+			using (StreamWriter outputFile = new StreamWriter(File.Open(fileName, FileMode.OpenOrCreate))) {
 				outputFile.Write(LpText);
 				outputFile.Close();
 			}

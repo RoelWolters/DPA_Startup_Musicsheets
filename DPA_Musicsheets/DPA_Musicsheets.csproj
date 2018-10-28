@@ -103,11 +103,25 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Managers\ISaver.cs" />
-    <Compile Include="Managers\MidiSaver.cs" />
-    <Compile Include="Managers\SaverFactory.cs" />
-    <Compile Include="Managers\LilypondSaver.cs" />
-    <Compile Include="Managers\PDFSaver.cs" />
+    <Compile Include="Managers\Chain of Responsibility\ChainOfResponsibility.cs" />
+    <Compile Include="Managers\Chain of Responsibility\ChainElement.cs" />
+    <Compile Include="Managers\Commands\Command.cs" />
+    <Compile Include="Managers\Commands\CommandHandler.cs" />
+    <Compile Include="Managers\Commands\OpenCommand.cs" />
+    <Compile Include="Managers\Commands\SaveCommand.cs" />
+    <Compile Include="Managers\Commands\SurroundWithTextCommand.cs" />
+    <Compile Include="Managers\Commands\InsertTextCommand.cs" />
+    <Compile Include="Managers\Loaders\ChooseFile.cs" />
+    <Compile Include="Managers\Loaders\ILoader.cs" />
+    <Compile Include="Managers\Loaders\LilypondLoader.cs" />
+    <Compile Include="Managers\Loaders\MidiLoader.cs" />
+    <Compile Include="Managers\Loaders\LoaderFactory.cs" />
+    <Compile Include="Managers\Savers\ISaver.cs" />
+    <Compile Include="Managers\KeyHandler.cs" />
+    <Compile Include="Managers\Savers\MidiSaver.cs" />
+    <Compile Include="Managers\Savers\SaverFactory.cs" />
+    <Compile Include="Managers\Savers\LilypondSaver.cs" />
+    <Compile Include="Managers\Savers\PDFSaver.cs" />
     <Compile Include="Models\NoteModels\BarComposite.cs" />
     <Compile Include="Models\NoteModels\BarlineLeaf.cs" />
     <Compile Include="Models\NoteModels\ClefLeaf.cs" />
@@ -129,7 +143,7 @@
     <Compile Include="Models\LilypondToken.cs" />
     <Compile Include="Models\LilypondTokenKind.cs" />
     <Compile Include="Factories\ParserFactory.cs" />
-    <Compile Include="Parsers\ToWPFFactory.cs" />
+    <Compile Include="Parsers\ToWPFConverter.cs" />
     <Compile Include="ViewModels\LilypondText.cs" />
     <Compile Include="ViewModels\LilypondTextCaretaker.cs" />
     <Compile Include="ViewModels\LilypondTextMemento.cs" />
@@ -255,6 +269,7 @@
     <Content Include="Files\Eenvoudige voorbeeldfiles\Rusten.ly" />
     <Content Include="Files\Eenvoudige voorbeeldfiles\Standaard_noten.ly" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

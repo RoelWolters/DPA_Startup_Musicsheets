@@ -35,7 +35,7 @@
         </i:Interaction.Triggers>
         <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.ColumnSpan="2">
             <Button Command="{Binding OpenFileCommand}" Content="Open" Margin="5" Width="75"/>
-            <TextBox IsReadOnly="True" TextWrapping="Wrap" Text="{Binding FileName}" Width="400" Margin="5"/>
+            <TextBox IsReadOnly="True" TextWrapping="Wrap" Text="{Binding FileName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="TextChanged" Width="400" Margin="5"/>
             <Button Command="{Binding LoadCommand}" Width="75" Content="Load" Margin="5"/>
             <local:MidiPlayerCtrl Margin="5" Grid.Row="2" Grid.Column="1"/>
         </StackPanel>

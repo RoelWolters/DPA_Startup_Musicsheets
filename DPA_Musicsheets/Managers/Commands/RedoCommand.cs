@@ -1,28 +1,26 @@
-﻿using DPA_Musicsheets.Managers.Openers;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
 
 namespace DPA_Musicsheets.Managers.Commands
 {
-	class OpenCommand : Command {
-
-		// The TextBox that should be passed to this method is the one that shows the filename to be opened.
+	class RedoCommand : Command {
 		public override void execute(ref int stackIndex, ref List<Command> stack) {
-			textBox.Text = ChooseFile.getFileChoice();
+			if (stackIndex < stack.Count - 1) {
+				stackIndex++;
+				stack[stackIndex].redo();
+			}
 		}
 
 		public override Command clone() {
-			OpenCommand newCommand = new OpenCommand();
+			RedoCommand newCommand = new RedoCommand();
 			newCommand.textBox = textBox;
 			newCommand.originalText = originalText;
 			newCommand.newText = newText;
 			return newCommand;
 		}
-
 	}
 }

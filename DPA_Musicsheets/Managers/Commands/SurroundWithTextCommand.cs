@@ -16,15 +16,18 @@ namespace DPA_Musicsheets.Managers.Commands
 			this.textAfter = textAfter;
 		}
 
-		public override void execute(TextBox textBox) {
+		public override void execute(ref int stackIndex, ref List<Command> stack) {
 			if (textBox != null) {
 				originalText = textBox.Text;
 				string originalSelection = textBox.SelectedText;
 				if (textBox.IsKeyboardFocused){
 					textBox.SelectedText = textBefore + originalSelection + textAfter;
 				}
-				this.textBox = textBox;
 				newText = textBox.Text;
+
+				stack = stack.GetRange(0, stackIndex + 1);
+				stackIndex++;
+				stack.Insert(stackIndex, this);
 			}
 		}
 

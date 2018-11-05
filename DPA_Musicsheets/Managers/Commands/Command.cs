@@ -10,16 +10,14 @@ namespace DPA_Musicsheets.Managers
 	abstract class Command {
 		protected string originalText; // The state the textBox was in right before executing our Command, undo() to this.
 		protected string newText; // The state the textBox is in right after executing our Command, redo() to this.
-		protected TextBox textBox; // The TextBox this Command was originally called with.
-		public bool historyStackable = true; // If this is false, do not add this Command to our undoable history.
+		public TextBox textBox = null; // The TextBox this Command should manipulate.
 
-		public abstract void execute(TextBox textBox);
+		public abstract void execute(ref int stackIndex, ref List<Command> stack);
 
 		public virtual void undo() {
 			if (originalText != null && textBox != null) {
 				textBox.Text = originalText;
 			}
-			
 		}
 
 		public virtual void redo() {

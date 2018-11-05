@@ -1,4 +1,5 @@
 ﻿using DPA_Musicsheets.Managers;
+using DPA_Musicsheets.Managers.Commands;
 using DPA_Musicsheets.States;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
@@ -125,22 +126,7 @@ namespace DPA_Musicsheets.ViewModels
 
         public ICommand SaveAsCommand => new RelayCommand(() =>
         {
-            // TODO: In the application a lot of classes know which filetypes are supported. Lots and lots of repeated code here...
-            // Can this be done better?
-            SaveFileDialog saveFileDialog = new SaveFileDialog() { Filter = "Midi|*.mid|Lilypond|*.ly|PDF|*.pdf" };
-            if (saveFileDialog.ShowDialog() == true)
-            {
-                string extension = Path.GetExtension(saveFileDialog.FileName);
-				SaverFactory factory = new SaverFactory();
-				ISaver saver = factory.createSaver(extension);
-				if (saver != null){
-					saver.save(saveFileDialog.FileName, LilypondText);
-				} else {
-					MessageBox.Show($"Extension {extension} is not supported.");
-				}
-
-                _mainViewModel.State = new NotEditedState();
-            }
+			new CommandHandler().handleCommand("save", null);
         });
         #endregion Commands for buttons like Undo, Redo and SaveAs
     }
